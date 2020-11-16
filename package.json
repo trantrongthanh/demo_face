@@ -1,0 +1,31 @@
+{
+  "name": "demo_face",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trantrongthanh/demo_face.git"
+  },
+  "keywords": [
+    "thanh",
+    "face_recognition"
+  ],
+  "author": "trantrongthanh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trantrongthanh/demo_face/issues"
+  },
+  "homepage": "https://github.com/trantrongthanh/demo_face#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "sync-request": "^3.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}

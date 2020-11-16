@@ -1,0 +1,32 @@
+[
+  {
+    "personId": "7dc7220e-7e7d-42d7-a5fb-20e92ba19504",
+    "persistedFaceIds": [
+      "1c5d1563-500c-4b69-b374-cea93c63970e",
+      "25da2685-174e-4198-870a-28f5e9fcecb6",
+      "35078fac-34c5-4631-9f8c-6419b09a40ee",
+      "40fc8e1d-43b2-4a09-8e1d-d6477729e714",
+      "631c90ac-6e98-4ebe-9403-ddf5ce27e17e",
+      "6bd6f38c-58a1-421f-a712-1b8490c08452",
+      "6eebaca9-7b14-492f-864b-d84b6d44291b",
+      "a3559a5d-0e5a-4cb1-8a03-5243eb457361",
+      "e8fe817d-5cbe-4517-b415-09a4079c4cdf"
+    ],
+    "name": "Idol",
+    "userData": "2"
+  },
+  {
+    "personId": "df3494b1-4823-4947-aecd-3f00a315c637",
+    "persistedFaceIds": [
+      "0868175b-e6ec-47d4-8a91-f306f55f9018",
+      "22716661-bca4-42c0-a00a-1fa9dba09cea",
+      "30708195-ff7d-4ec6-b6d9-077e93ee7677",
+      "7e0c4d3e-0176-4c9e-9480-366411ccfcb4",
+      "ce4b74d7-4fdd-4be7-a880-9f7c84640062",
+      "e23aa81a-e0d6-4936-94a3-b9e5a52b9e9f",
+      "e9bed407-0aa5-4f50-af48-d4156e3b5161"
+    ],
+    "name": "Trần Trọng Thành",
+    "userData": "1"
+  }
+]
