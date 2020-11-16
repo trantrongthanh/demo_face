@@ -1,12 +1,34 @@
 const express = require('express')
 const app = express()
+const morgan = require('morgan')
 const port = 3000
+const path = require('path')
+const handlebars = require('express-handlebars')
+
+app.use(morgan('combined'))
+app.engine('handlebars', handlebars())
+app.set('view engine', 'handlebars')
+app.set('views', path.join(__dirname, 'resources/views'))
+
+app.get('/', (req, res) => { 
+    // res.send('Hello World!')
+    // var result = recognize('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQUdOlPtg_jvRAGGl9_5sj2Tb9G_h3pil9Zdw&usqp=CAU');
+    // console.log(JSON.stringify(result, null, 2));
+    res.render('home')
+    
+    
+})
+
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
+})
+
 
 // Sử dụng thư  viện
 var request = require('sync-request');
 
 // Đọc thông tin idol trong file filtered-idols.json và thông tin person đã lưu từ API
-var idolPerson = require('./idol-person.json');
+var idolPerson = require('../idol-person.json');
 
 
 let key = 'd5337aaf2cb849879e99f680d51997be'; // Thay thế bằng key của bạn
@@ -113,15 +135,3 @@ function recognize1(imageUrl) {
     });
 }
 // Test method recognize
-
-
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-    var result = recognize('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQUdOlPtg_jvRAGGl9_5sj2Tb9G_h3pil9Zdw&usqp=CAU');
-    res.send(JSON.stringify(result, null, 2));
-    
-})
-
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-})
