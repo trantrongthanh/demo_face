@@ -19,3 +19,6 @@
     min-width: 100px;
     position: absolute;
 }
+.card-title{
+    color: blue;
+}

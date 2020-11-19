@@ -96,6 +96,6 @@ function recognize(imageUrl) {
 }
 
 
-// var result = recognize('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQUdOlPtg_jvRAGGl9_5sj2Tb9G_h3pil9Zdw&usqp=CAU');
-// console.log(JSON.stringify(result, null, 2));
+var result = recognize('https://kenh14cdn.com/thumb_w/600/2020/5/27/screenshot1-1590583004278676783598-crop-15905830130092016060937.png');
+console.log(JSON.stringify(result, null, 2));
 

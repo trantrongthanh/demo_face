@@ -15,17 +15,31 @@
                 {{!-- <img src="https://picsum.photos/500/500" --}}
                 <div class="source-image">
                     <img src="{{this.link}}" class="card-img-top" alt="...">
-                    <div class="idol-face" ng-repeat="face in faceDisplay" ng-style="face.style">
+
+                    {{!-- <div class="idol-face" ng-repeat="face in faceDisplay" ng-style="face.style">
                         <span class="idol-name">{{face.name}}</span>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Kết quả</h5>
-
                     <ul class="list-group">
                         {{#each this.result}}
+                        <li class="list-group-item"> <b>Person</b>
                         <li class="list-group-item">id: {{this.person.id}}</li>
                         <li class="list-group-item">name: {{this.person.name}}</li>
+                        <li class="list-group-item">face:
+                            <p>top: {{this.face.top}}</p>
+                            <p>left: {{this.face.top}}</p>
+                            <p>width: {{this.face.top}}</p>
+                            <p>height: {{this.face.top}}</p>
+                        </li>
+
+                        {{#each this.candidates}}
+                        <li class="list-group-item">Confident: {{this.confidence}}</li>
+                        {{/each}}
+
+
+                        </li>
                         {{/each}}
 
                     </ul>

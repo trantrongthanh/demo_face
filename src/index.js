@@ -9,7 +9,7 @@ app.use(morgan('combined'))
 app.engine('handlebars', handlebars())
 app.set('view engine', 'handlebars')
 app.set('views', path.join(__dirname, 'resources/views'))
-
+app.use(express.static(path.join(__dirname, '/resources')));
 // var script = require(path.join(__dirname, 'test.js'))
 
 app.get('/', (req, res) => {
@@ -18,7 +18,6 @@ app.get('/', (req, res) => {
         link = req.query.link
         var result = recognize(link)
 
-        console.log(result)
         res.render('home', {
             title: 'abc',
             link: link,
@@ -28,22 +27,17 @@ app.get('/', (req, res) => {
     else
         res.render('home', {
             title: 'abc',
-            link: 'https://picsum.photos/500/500',
-            result: {name: '' , id : ''}
+            link: 'https://picsum.photos/500/500'
         })
     {
 
     }
-    // res.render('home', { title: 'My title', script:script})
-
-
 
 })
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
-
 
 // Sử dụng thư  viện
 var request = require('sync-request');
@@ -141,7 +135,6 @@ function recognize(imageUrl) {
     console.log(`Finish recognize image: ${imageUrl}`);
     return allIdols;
 }
-
 
 // // // Test method recognize
 // function recognize1(imageUrl) {
