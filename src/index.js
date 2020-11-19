@@ -21,6 +21,7 @@ app.get('/', (req, res) => {
         res.render('home', {
             title: 'abc',
             link: link,
+            thanh:'thanh',
             result: result
         })
     }
