@@ -1,1 +1,36 @@
-<h1>Hello thành, tối nay mà ko xong thì mai toang r</h1>
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Demo nhận diện khuôn mặt</a>
+</nav>
+<form>
+    <div class="form-group">
+        <input type="text" name="link" class="form-control" id="link" placeholder="Nhập vào link ảnh">
+    </div>
+    <button type="submit" class="btn btn-primary">Tìm</button>
+</form>
+<div class="posts">
+    <div class="row justify-content-center">
+        <div class="col-lg-7" style="margin-top: 50px;">
+            <div class="card">
+
+                {{!-- <img src="https://picsum.photos/500/500" --}}
+                <div class="source-image">
+                    <img src="{{this.link}}" class="card-img-top" alt="...">
+                    <div class="idol-face" ng-repeat="face in faceDisplay" ng-style="face.style">
+                        <span class="idol-name">{{face.name}}</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Kết quả</h5>
+
+                    <ul class="list-group">
+                        {{#each this.result}}
+                        <li class="list-group-item">id: {{this.person.id}}</li>
+                        <li class="list-group-item">name: {{this.person.name}}</li>
+                        {{/each}}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

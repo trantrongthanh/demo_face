@@ -10,13 +10,34 @@ app.engine('handlebars', handlebars())
 app.set('view engine', 'handlebars')
 app.set('views', path.join(__dirname, 'resources/views'))
 
-app.get('/', (req, res) => { 
-    // res.send('Hello World!')
-    // var result = recognize('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQUdOlPtg_jvRAGGl9_5sj2Tb9G_h3pil9Zdw&usqp=CAU');
-    // console.log(JSON.stringify(result, null, 2));
-    res.render('home')
-    
-    
+// var script = require(path.join(__dirname, 'test.js'))
+
+app.get('/', (req, res) => {
+
+    if (Object.keys(req.query).length > 0) {
+        link = req.query.link
+        var result = recognize(link)
+
+        console.log(result)
+        res.render('home', {
+            title: 'abc',
+            link: link,
+            result: result
+        })
+    }
+    else
+        res.render('home', {
+            title: 'abc',
+            link: 'https://picsum.photos/500/500',
+            result: {name: '' , id : ''}
+        })
+    {
+
+    }
+    // res.render('home', { title: 'My title', script:script})
+
+
+
 })
 
 app.listen(port, () => {
@@ -104,12 +125,12 @@ function recognize(imageUrl) {
             // Kết quả chỉ trả về ID, dựa vào ID này ta tìm tên của idol
             var idolId = result.candidates[0].personId;
             var idol = idolPerson.filter(person => person.personId == idolId)[0];
-            result.idol = {
+            result.person = {
                 id: idol.userData,
                 name: idol.name
             };
         } else {
-            result.idol = {
+            result.person = {
                 id: 0,
                 name: 'Unknown'
             }
@@ -122,16 +143,16 @@ function recognize(imageUrl) {
 }
 
 
+// // // Test method recognize
+// function recognize1(imageUrl) {
+//     var result = recognize(imageUrl);
+//     console.log(JSON.stringify(result, null, 2));
+//     jsonData = JSON.stringify(result, null, 2)
+//     var fs = require('fs');
+//     fs.writeFile("test.txt", jsonData, function (err) {
+//         if (err) {
+//             console.log(err);
+//         }
+//     });
+// }
 // // Test method recognize
-function recognize1(imageUrl) {
-    var result = recognize(imageUrl);
-    console.log(JSON.stringify(result, null, 2));
-    jsonData = JSON.stringify(result, null, 2)
-    var fs = require('fs');
-    fs.writeFile("test.txt", jsonData, function (err) {
-        if (err) {
-            console.log(err);
-        }
-    });
-}
-// Test method recognize

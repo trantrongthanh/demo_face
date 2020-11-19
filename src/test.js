@@ -2,7 +2,7 @@
 var request = require('sync-request');
 
 // Đọc thông tin idol trong file filtered-idols.json và thông tin person đã lưu từ API
-var idolPerson = require('./idol-person.json');
+var idolPerson = require('../idol-person.json');
 
 
 let key = 'd5337aaf2cb849879e99f680d51997be'; // Thay thế bằng key của bạn
@@ -96,18 +96,6 @@ function recognize(imageUrl) {
 }
 
 
-
-
-// // Test method recognize
-function recognize1(imageUrl) {
-    var result = recognize(imageUrl);
-    console.log(JSON.stringify(result, null, 2));
-    jsonData = JSON.stringify(result, null, 2)
-    var fs = require('fs');
-    fs.writeFile("test.txt", jsonData, function (err) {
-        if (err) {
-            console.log(err);
-        }
-    });
-}
+// var result = recognize('https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQUdOlPtg_jvRAGGl9_5sj2Tb9G_h3pil9Zdw&usqp=CAU');
+// console.log(JSON.stringify(result, null, 2));
 
