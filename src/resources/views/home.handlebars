@@ -1,5 +1,5 @@
-<nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">Demo nhận diện khuôn mặt</a>
+<nav class="navbar navbar-dark bg-dark" >
+    <a class="navbar-brand" href="#" style="margin-left: 50px;">Demo nhận diện khuôn mặt</a>
 </nav>
 <form>
     <div class="form-group">
@@ -14,11 +14,15 @@
 
                 {{!-- <img src="https://picsum.photos/500/500" --}}
                 <div class="source-image">
-                    <img src="{{this.link}}" class="card-img-top" alt="...">
+                    <img src="{{this.link}}" class="" alt="...">
 
-                    {{!-- <div class="idol-face" ng-repeat="face in faceDisplay" ng-style="face.style">
-                        <span class="idol-name">{{face.name}}</span>
-                    </div> --}}
+                    {{#each this.result}}
+                        <div class="idol-face" style="top:{{this.face.top}}px; left:{{this.face.left}}px;
+                                                    width:{{this.face.width}}px; height:{{this.face.height}}px">
+                        <span class="idol-name" style = "")}>{{this.person.name}}</span>
+                    </div>
+                    {{/each}}
+                    
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Kết quả</h5>
@@ -29,10 +33,9 @@
                         <li class="list-group-item">name: {{this.person.name}}</li>
                         <li class="list-group-item">face:
                             <p>top: {{this.face.top}}</p>
-                            <p>left: {{this.face.top}}</p>
-                            <p>width: {{this.face.top}}</p>
-                            <p>height: {{this.face.top}}</p>
-                            <p>height: {{this.face.top}}</p>
+                            <p>left: {{this.face.left}}</p>
+                            <p>width: {{this.face.width}}</p>
+                            <p>height: {{this.face.height}}</p>
                         </li>
 
                         {{#each this.candidates}}
