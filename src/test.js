@@ -1,3 +1,4 @@
+
 // Sử dụng thư  viện
 var request = require('sync-request');
 
@@ -78,12 +79,12 @@ function recognize(imageUrl) {
             // Kết quả chỉ trả về ID, dựa vào ID này ta tìm tên của idol
             var idolId = result.candidates[0].personId;
             var idol = idolPerson.filter(person => person.personId == idolId)[0];
-            result.idol = {
+            result.person = {
                 id: idol.userData,
                 name: idol.name
             };
         } else {
-            result.idol = {
+            result.person = {
                 id: 0,
                 name: 'Unknown'
             }
@@ -95,7 +96,9 @@ function recognize(imageUrl) {
     return allIdols;
 }
 
-
-var result = recognize('https://kenh14cdn.com/thumb_w/600/2020/5/27/screenshot1-1590583004278676783598-crop-15905830130092016060937.png');
-console.log(JSON.stringify(result, null, 2));
+exports.recognize = recognize;
+exports.identify = identify;
+exports.detect = detect;
+// var result = recognize('https://kenh14cdn.com/thumb_w/600/2020/5/27/screenshot1-1590583004278676783598-crop-15905830130092016060937.png');
+// console.log(JSON.stringify(result, null, 2));
 
