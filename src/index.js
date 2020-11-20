@@ -17,9 +17,8 @@ app.get('/', (req, res) => {
     if (Object.keys(req.query).length > 0) {
         link = req.query.link
         var result = recognize(link)
-
+        
         res.render('home', {
-            title: 'abc',
             link: link,
             result: result
         })

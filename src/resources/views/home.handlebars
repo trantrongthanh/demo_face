@@ -1,28 +1,35 @@
-<nav class="navbar navbar-dark bg-dark" >
-    <a class="navbar-brand" href="#" style="margin-left: 50px;">Demo nhận diện khuôn mặt</a>
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="#" style="margin-left: 17%;">Demo nhận diện khuôn mặt</a>
 </nav>
 <form>
-    <div class="form-group">
-        <input type="text" name="link" class="form-control" id="link" placeholder="Nhập vào link ảnh">
+    <div class="row" style="margin-top: 50px;">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" id='widthImg'>
+            <div class="form-group">
+                <input type="text" name="link" class="form-control" id="link" placeholder="Nhập vào link ảnh">
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Tìm</button>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Tìm</button>
+
+
 </form>
 <div class="posts">
     <div class="row justify-content-center">
-        <div class="col-lg-7" style="margin-top: 50px;">
+        <div class="col-md-8" style="margin-top: 50px;">
             <div class="card">
 
-                {{!-- <img src="https://picsum.photos/500/500" --}}
                 <div class="source-image">
-                    <img src="{{this.link}}" class="" alt="...">
-
+                    <img id='imageID' src="{{this.link}}" class="" alt="..." style="margin: 10px;">
                     {{#each this.result}}
-                        <div class="idol-face" style="top:{{this.face.top}}px; left:{{this.face.left}}px;
+                    <div class="idol-face" style="top:{{this.face.top}}px; left:{{this.face.left}}px;
                                                     width:{{this.face.width}}px; height:{{this.face.height}}px">
-                        <span class="idol-name" style = "")}>{{this.person.name}}</span>
+                        <span class="idol-name" style="" )}>{{this.person.name}}</span>
                     </div>
                     {{/each}}
-                    
+
                 </div>
                 <div class="card-body">
                     <h5 class="card-title">Kết quả</h5>
