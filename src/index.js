@@ -12,19 +12,28 @@ app.set('views', path.join(__dirname, 'resources/views'))
 app.use(express.static(path.join(__dirname, '/resources')));
 var recogn = require('./test.js');
 
-app.get('/', (req, res) => {
+
+app.get('/', (req, res) =>
+{
+    res.render('home')
+})
+app.get('/library', (req, res) =>
+{
+    res.render('library')
+})
+app.get('/search', (req, res) => {
 
     if (Object.keys(req.query).length > 0) {
         link = req.query.link
         var result = recogn.recognize(link)
         
-        res.render('home', {
+        res.render('search', {
             link: link,
             result: result
         })
     }
     else
-        res.render('home', {
+        res.render('search', {
             title: 'abc',
             link: 'https://picsum.photos/500/500'
         })

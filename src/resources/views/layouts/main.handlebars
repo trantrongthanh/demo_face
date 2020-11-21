@@ -12,27 +12,32 @@
     <link rel="stylesheet" href="style.css">
 
     <title>Hello, world!</title>
-    
+
 </head>
 
 <body>
-    {{{body}}}
-    <div class="row">
-
-
-        <div class="col-sm-2"></div>
-        <div class="col-sm-8">
-            <div class="card">
-                <div class="card-body">
-
-                    <h4 class="card-title">Link test</h4>
-                    <p>https://storagecnm.blob.core.windows.net/mix/thanhandcanh.jpg
-                    </p>
-                    <p>https://i.ytimg.com/vi/1MUu5tEHUlI/maxresdefault.jpg</p>
-                </div>
+     <nav class="navbar navbar-expand-lg navbar-darkgit  bg-dark">
+            <a class="navbar-brand" href="/">Iphoto</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/library">Library</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search">Search</a>
+                    </li>
+                </ul>
             </div>
-        </div>
-    </div>
+        </nav>
+    {{{body}}}
+
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
