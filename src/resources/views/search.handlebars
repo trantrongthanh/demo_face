@@ -1,14 +1,20 @@
-
 <form>
     <div class="row" style="margin-top: 50px;">
         <div class="col-md-2"></div>
         <div class="col-md-8" id='widthImg'>
             <div class="form-group">
                 <input type="text" name="link" class="form-control" id="link" placeholder="Nhập vào link ảnh">
+                
+                <input type="text" id='widthInput' name="width" class="form-control" id="link" value="thanh" style="display: none;">
             </div>
         </div>
         <div class="col-sm-2">
             <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Tìm</button>
+            <script>
+                var inform = '{{this.inform}}'
+                if (inform.length > 0)
+                    alert(inform)
+            </script>
         </div>
     </div>
 
@@ -20,11 +26,12 @@
             <div class="card">
 
                 <div class="source-image">
-                    <img id='imageID' src="{{this.link}}" class="" alt="..." style="margin: 0px;">
+                    <img id='imageID' src="{{this.link}}" class="card-img-top" alt="..." style="margin: 0px;">
                     {{#each this.result}}
                     <div class="idol-face" style="top:{{this.face.top}}px; left:{{this.face.left}}px;
                                                     width:{{this.face.width}}px; height:{{this.face.height}}px">
                         <span class="idol-name" style="" )}>{{this.person.name}}</span>
+                        {{!-- <input type="text" placeholder="Nhap ten" style="margin-top: -50px;"> --}}
                     </div>
                     {{/each}}
 
@@ -46,8 +53,6 @@
                         {{#each this.candidates}}
                         <li class="list-group-item">Confident: {{this.confidence}}</li>
                         {{/each}}
-
-
                         </li>
                         {{/each}}
 
@@ -58,7 +63,15 @@
                     <p class="list-group-item">https://i.ytimg.com/vi/1MUu5tEHUlI/maxresdefault.jpg</p>
                 </div>
 
-                
+
             </div>
         </div>
     </div>
+    <script>
+        var image = document.getElementById('imageID')
+        document.getElementById("widthInput").value = image.clientWidth;
+
+        
+        
+    </script>
+</div>

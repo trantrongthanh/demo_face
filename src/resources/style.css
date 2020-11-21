@@ -23,21 +23,11 @@
     color: blue;
 }
 .navbar-nav a{
-    font-size: 25px;
-    color: white;
-    opacity: 0.7;
-
     
-}
-.navbar-nav a:hover{
-    opacity: 1;
+    font-size: 25px;    
 }
 .navbar-brand{
+    margin-right: 9%;
     font-size: 35px;
-    color: white;
-    opacity: 0.7;
 }
-.navbar-brand:hover{
-    opacity: 1;
-    color: white;
-}
+
