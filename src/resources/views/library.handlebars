@@ -1,5 +1,18 @@
-<div class="row justify-content-center">
-    <div class="col-sm-8">
-        <h1>Minh nhựt chó điên library</h1>
+<div class="container">
+    {{#each this.result}}
+    <h2>{{this.lbl}}</h2>
+
+    <div class="row">
+        {{#each this.ress}}
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a href="{{this.url}}" target="_blank">
+                    <img src="{{this.url}}" alt="Lights" style="width:100%">
+                </a>
+            </div>
+        </div>
+        {{/each}}
     </div>
+
+    {{/each}}
 </div>

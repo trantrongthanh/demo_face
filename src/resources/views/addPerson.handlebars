@@ -1,15 +1,24 @@
-<form>
+<form style="margin-top: 50px;">
+
     <div class="row" style="margin-top: 50px;">
         <div class="col-md-2"></div>
-        <div class="col-md-8" id='widthImg'>
+        <div class="col-md-8">
             <div class="form-group">
-                <input type="text" name="link" class="form-control" id="link" placeholder="Nhập vào link ảnh">
+                <img id='imageID' src="{{this.link}}" class="card-img-top" alt="...">
+
+                {{#each this.unknowList}}
+                <input type="text" id="{{this.faceId}}" name="name" placeholder="Nhap ten"
+                    style="position: absolute; top: {{this.inputTop}}px; left: {{this.inputLeft}}px; width: {{this.inputWidth}}px;">
+                <div class="idol-face" style="top:{{this.face.top}}px; left:{{this.face.left}}px;
+                                                    width:{{this.face.width}}px; height:{{this.face.height}}px">
+                </div>
+
+                {{/each}}
             </div>
         </div>
         <div class="col-sm-2">
-            <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Tìm</button>
+            <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Thêm người</button>
         </div>
     </div>
-
 
 </form>

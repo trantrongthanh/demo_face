@@ -1,11 +1,11 @@
 <form>
-    <div class="row" style="margin-top: 50px;">
+    <div class="row" style="margin-top: 20px;">
         <div class="col-md-2"></div>
         <div class="col-md-8" id='widthImg'>
             <div class="form-group">
                 <input type="text" name="link" class="form-control" id="link" placeholder="Nhập vào link ảnh">
-                
-                <input type="text" id='widthInput' name="width" class="form-control" id="link" value="thanh" style="display: none;">
+
+                <input type="text" id='widthInput' name="width" id="link" style="display: none;">
             </div>
         </div>
         <div class="col-sm-2">
@@ -25,16 +25,16 @@
         <div class="col-md-8" style="margin-top: 50px;">
             <div class="card">
 
-                <div class="source-image">
-                    <img id='imageID' src="{{this.link}}" class="card-img-top" alt="..." style="margin: 0px;">
+                <div class="source-image align-middle">
+                    <img id='imageID' src="{{this.link}}" class="card-img-top" alt="...">
                     {{#each this.result}}
+                    <span class="idol-name" style="position: absolute; top: {{this.inputTop}}px; left: {{this.inputLeft}}px;">
+                        {{this.person.name}}
+                    </span>
                     <div class="idol-face" style="top:{{this.face.top}}px; left:{{this.face.left}}px;
                                                     width:{{this.face.width}}px; height:{{this.face.height}}px">
-                        <span class="idol-name" style="" )}>{{this.person.name}}</span>
-                        {{!-- <input type="text" placeholder="Nhap ten" style="margin-top: -50px;"> --}}
                     </div>
                     {{/each}}
-
                 </div>
                 <div class="card-body">
                     <h4 class="card-title">Kết quả</h4>
@@ -70,8 +70,5 @@
     <script>
         var image = document.getElementById('imageID')
         document.getElementById("widthInput").value = image.clientWidth;
-
-        
-        
     </script>
 </div>
