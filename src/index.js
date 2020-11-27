@@ -72,17 +72,28 @@ app.get('/library', (req, res) => {
         });
 })
 app.get('/addPerson', (req, res) => {
-    var unknowList = [];
+    var unknowList = []
+    var knownList = []
     result.forEach(function (item) {
-        if (item.person.id == 0)
+        if (item.person.name == '#unknown')
             unknowList.push(item)
+        else 
+            knownList.push(item)
     })
+    if(knownList.length > 0)
+    {
+        knownList.forEach(function(item){
+            item.name = item.person.name;
+        })
+        console.log(knownList)
+        addPersons(link, knownList)
+    }
     if (unknowList.length > 0) {
+        // console.log(unknowList)
         unknowList.forEach(function (item) {
             item.inputTop = item.face.top_new - 30;
             item.inputLeft = item.face.left_new;
             item.inputWidth = item.face.width_new;
-
         })
         if (Object.keys(req.query).length > 0) {
             var listName = req.query.name;
@@ -93,30 +104,24 @@ app.get('/addPerson', (req, res) => {
                 else
                     item.name = listName[index];
                 index++
-
             })
             unknowList = unknowList.filter(function (item) {
                 return item.name != ''
             })
             if (unknowList.length > 0) {
-                addPersons(link, unknowList, res)
+                addPersons(link, unknowList)
             }
-
-
         }
-
         res.render('addPerson',
             {
                 link: link,
                 unknowList: unknowList
             })
-        
     }
     else
         res.render('addPerson')
-
-
 })
+
 app.get('/search', (req, res) => {
     if (Object.keys(req.query).length > 0) {
         link = req.query.link
@@ -168,8 +173,8 @@ app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
 
-function addPersons(link, persons, res) {
-    async function uploadImage (){
+function addPersons(link, persons) {
+    async function uploadImage() {
         await cloudinary.uploader.upload(link, {
             folder: 'All_image'
         },
@@ -181,10 +186,10 @@ function addPersons(link, persons, res) {
     uploadImage().then(() => {
         persons.forEach(function (item) {
             n = item.face.width
-            y = Math.round(item.face.top- 0.5*n)
-            x = Math.round(item.face.left-0.5*n)
-            width = Math.round(item.face.width*1.7)
-            height = Math.round(item.face.height*1.7)
+            y = Math.round(item.face.top - 0.5 * n)
+            x = Math.round(item.face.left - 0.5 * n)
+            width = Math.round(item.face.width * 1.7)
+            height = Math.round(item.face.height * 1.7)
             crop = 'c_crop,h_' + height + ',w_' + width + ',x_' + x + ',y_' + y + ''
             splitLink = link.split('/');
             face_link = ''
@@ -201,8 +206,6 @@ function addPersons(link, persons, res) {
             console.log('Link:')
             console.log(face_link)
         })
-
-
         persons.forEach(function (item) {
             person = idolPerson.filter(person => person.name == item.name)[0]
             console.log(person)
@@ -210,11 +213,8 @@ function addPersons(link, persons, res) {
                 submitFace.submitOnePerson(item.name, item.face_link)
             else
                 submitFace.submitIdolFace(person.personId, item.face_link)
-
+            idolPerson = submitFace.getListPerson()
         })
-        idolPerson = submitFace.getListPerson()
         submitFace.train()
     })
-
-
 }

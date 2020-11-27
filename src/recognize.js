@@ -83,8 +83,7 @@ function recognize(imageUrl, idolPerson) {
             };
         } else {
             result.person = {
-                id: 0,
-                name: 'Unknown'
+                name: '#unknown'
             }
         }
         return result;
