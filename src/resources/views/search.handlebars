@@ -8,7 +8,7 @@
                 <input type="text" id='widthInput' name="width" id="link" style="display: none;">
             </div>
         </div>
-        <div class="col-sm-2">
+        <div class="col-md-2">
             <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Tìm</button>
             <script>
                 var inform = '{{this.inform}}'
@@ -31,8 +31,8 @@
                     <span class="idol-name" style="position: absolute; top: {{this.inputTop}}px; left: {{this.inputLeft}}px;">
                         {{this.person.name}}
                     </span>
-                    <div class="idol-face" style="top:{{this.face.top}}px; left:{{this.face.left}}px;
-                                                    width:{{this.face.width}}px; height:{{this.face.height}}px">
+                    <div class="idol-face" style="top:{{this.face.top_new}}px; left:{{this.face.left_new}}px;
+                                                    width:{{this.face.width_new}}px; height:{{this.face.height_new}}px">
                     </div>
                     {{/each}}
                 </div>
@@ -41,13 +41,12 @@
                     <ul class="list-group">
                         {{#each this.result}}
                         <li class="list-group-item"> <b>Person</b>
-                        <li class="list-group-item">id: {{this.person.id}}</li>
                         <li class="list-group-item">name: {{this.person.name}}</li>
                         <li class="list-group-item">face:
-                            <p>top: {{this.face.top}}</p>
-                            <p>left: {{this.face.left}}</p>
-                            <p>width: {{this.face.width}}</p>
-                            <p>height: {{this.face.height}}</p>
+                            <p>top: {{this.face.top_new}}</p>
+                            <p>left: {{this.face.left_new}}</p>
+                            <p>width: {{this.face.width_new}}</p>
+                            <p>height: {{this.face.height_new}}</p>
                         </li>
 
                         {{#each this.candidates}}
