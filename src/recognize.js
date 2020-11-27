@@ -10,7 +10,7 @@ let groupId = 'face_group';
 // Phát hiện khuôn mặt trong ảnh (Face Detection)
 function detect(imageUrl) {
     console.log(`Begin to detect face from image: ${imageUrl}`);
-    let url = `https://southeastasia.api.cognitive.microsoft.com/face/v1.0/detect?recognitionModel=recognition_03`;
+    let url = `https://southeastasia.api.cognitive.microsoft.com/face/v1.0/detect?recognitionModel=recognition_03&detectionModel=detection_02`;
     var res = request('POST', url, {
         headers: {
             'Ocp-Apim-Subscription-Key': key

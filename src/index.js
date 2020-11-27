@@ -186,8 +186,8 @@ function addPersons(link, persons) {
     uploadImage().then(() => {
         persons.forEach(function (item) {
             n = item.face.width
-            y = Math.round(item.face.top - 0.5 * n)
-            x = Math.round(item.face.left - 0.5 * n)
+            y = Math.round(item.face.top - 0.25 * n)
+            x = Math.round(item.face.left - 0.25 * n)
             width = Math.round(item.face.width * 1.7)
             height = Math.round(item.face.height * 1.7)
             crop = 'c_crop,h_' + height + ',w_' + width + ',x_' + x + ',y_' + y + ''
