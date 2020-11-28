@@ -85,22 +85,14 @@ async function getOneAlbum(res, lbl) {
         results: album.resources,
         lbl: lbl
     })
-    
-    // album = getResult()
-    // console.log(album)
-    // return album
-    // // }
-    // // getResult().then(() => {
-    // //      return result
-    // // })
 
 }
-async function uploadImage() {
-    await cloudinary.uploader.upload(link, {
+async function uploadImage(cloud_link) {
+    await cloudinary.uploader.upload(cloud_link.link, {
         folder: 'All_image'
     },
         function (error, result) {
-            link = result.url;
+            cloud_link.link = result.url;
         });
 }
 

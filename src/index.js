@@ -16,6 +16,7 @@ app.use(express.static(path.join(__dirname, '/resources')));
 var recogn = require('./recognize.js');
 var submitFace = require('./submit.js');
 var library = require('./library.js');
+var upload = require('./upload.js');
 
 //Load data cần thiết
 var idolPerson = submitFace.getListPerson()
@@ -34,12 +35,6 @@ app.get('/', (req, res) => {
 app.get('/album', (req, res) => {
     lbl = req.query.l
     library.getOneAlbum(res, lbl)
-    
-    // res.render('album', {
-    //     results: results.resources,
-    //     lbl: lbl
-    // })
-
 })
 
 app.get('/library', (req, res) => {
@@ -60,7 +55,7 @@ app.get('/addPerson', (req, res) => {
             item.name = item.person.name;
         })
         console.log(knownList)
-        addPersons(link, knownList)
+        addPerson(link, knownList)
     }
     if (unknowList.length > 0) {
         // console.log(unknowList)
@@ -83,7 +78,7 @@ app.get('/addPerson', (req, res) => {
                 return item.name != ''
             })
             if (unknowList.length > 0) {
-                addPersons(link, unknowList)
+                addPerson(link, unknowList)
             }
         }
         res.render('addPerson',
@@ -147,31 +142,13 @@ app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
 
-function addPersons(link, persons) {
-
-    library.uploadImage().then(() => {
-        persons.forEach(function (item) {
-            n = item.face.width
-            y = Math.round(item.face.top - 0.25 * n)
-            x = Math.round(item.face.left - 0.25 * n)
-            width = Math.round(item.face.width * 1.7)
-            height = Math.round(item.face.height * 1.7)
-            crop = 'c_crop,h_' + height + ',w_' + width + ',x_' + x + ',y_' + y + ''
-            splitLink = link.split('/');
-            face_link = ''
-            for (i = 0; i < splitLink.length; i++) {
-                if (i == 0)
-                    face_link += splitLink[i]
-                else if (splitLink[i] == 'upload')
-                    face_link += '/' + splitLink[i] + '/' + crop
-                else
-                    face_link += '/' + splitLink[i]
-
-            }
-            item.face_link = face_link
-            console.log('Link:')
-            console.log(face_link)
-        })
+function addPerson(link, persons) {
+    let cropLink = {}
+    cropLink.link = link
+    library.uploadImage(cropLink).then(() => {
+        //cắt khuôn mặt và thêm link khuôn mặt được cắt vào thuộc tính của person
+        upload.addLinkCropFace(persons, cropLink.link)
+        
         persons.forEach(function (item) {
             person = idolPerson.filter(person => person.name == item.name)[0]
             console.log(person)
