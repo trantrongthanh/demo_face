@@ -11,65 +11,40 @@ app.engine('handlebars', handlebars())
 app.set('view engine', 'handlebars')
 app.set('views', path.join(__dirname, 'resources/views'))
 app.use(express.static(path.join(__dirname, '/resources')));
+
+//Load các file js
 var recogn = require('./recognize.js');
 var submitFace = require('./submit.js');
-var idolPerson = submitFace.getListPerson()
-//Nhut
-const cloudinary = require('cloudinary').v2;
-var resource = []
+var library = require('./library.js');
 
-cloudinary.config({
-    cloud_name: 'iuhcongnghemoi',
-    api_key: '999481664635386',
-    api_secret: 'GUfv84rFUSuz6RMM5Qj06VYBUN4'
-});
-//Nhut
+//Load data cần thiết
+var idolPerson = submitFace.getListPerson()
 
 var link;
 var result;
 var ratio;
-// var names;
-// async function getNames() {
-//     cloudinary.api.sub_folders("image",
-//         await function (error, subf) {
-//             names = subf.folders
-//         })
-// }
-// getNames()
 
 app.get('/', (req, res) => {
-    res.render('home')
+    var resource = library.getAllImage()
+    res.render('home', {
+        results: resource
+    })
 })
+
+app.get('/album', (req, res) => {
+    lbl = req.query.l
+    library.getOneAlbum(res, lbl)
+    
+    // res.render('album', {
+    //     results: results.resources,
+    //     lbl: lbl
+    // })
+
+})
+
 app.get('/library', (req, res) => {
-    cloudinary.api.sub_folders("image",
-        function (error, subf) {
-
-            for (let i = 0; i < subf.folders.length; i++) {
-                console.log(subf.folders[i].path);
-
-                cloudinary.api.resources({
-                    type: 'upload',
-                    prefix: subf.folders[i].path,
-                    max_results: 100
-                }, function (error, results) {
-                    let obj = {
-                        ress: results.resources,
-                        lbl: subf.folders[i].name
-                    }
-                    resource[i] = obj
-                });
-            }
-            setTimeout(() => {
-                resource.forEach(function (each) {
-                    console.log(each.ress);
-                })
-
-                res.render('library', {
-                    result: resource
-                })
-            }, 1000);
-
-        });
+    var listAlbum = library.getListAlbum()
+    res.render('library', { result: listAlbum })
 })
 app.get('/addPerson', (req, res) => {
     var unknowList = []
@@ -77,12 +52,11 @@ app.get('/addPerson', (req, res) => {
     result.forEach(function (item) {
         if (item.person.name == '#unknown')
             unknowList.push(item)
-        else 
+        else
             knownList.push(item)
     })
-    if(knownList.length > 0)
-    {
-        knownList.forEach(function(item){
+    if (knownList.length > 0) {
+        knownList.forEach(function (item) {
             item.name = item.person.name;
         })
         console.log(knownList)
@@ -163,7 +137,7 @@ app.get('/search', (req, res) => {
     else {
         res.render('search', {
             title: 'abc',
-            link: 'https://picsum.photos/500/500'
+            link: 'https://esben.qodeinteractive.com/wp-content/uploads/2017/07/home-03-img-3.jpg'
         })
     }
 
@@ -174,16 +148,8 @@ app.listen(port, () => {
 })
 
 function addPersons(link, persons) {
-    async function uploadImage() {
-        await cloudinary.uploader.upload(link, {
-            folder: 'All_image'
-        },
-            function (error, result) {
-                link = result.url;
-            });
-    }
 
-    uploadImage().then(() => {
+    library.uploadImage().then(() => {
         persons.forEach(function (item) {
             n = item.face.width
             y = Math.round(item.face.top - 0.25 * n)
@@ -218,3 +184,12 @@ function addPersons(link, persons) {
         submitFace.train()
     })
 }
+
+// var names;
+// async function getNames() {
+//     cloudinary.api.sub_folders("image",
+//         await function (error, subf) {
+//             names = subf.folders
+//         })
+// }
+// getNames()
