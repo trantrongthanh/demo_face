@@ -11,6 +11,7 @@ loadAlbum()
 loadAllImage()
 
 function loadAlbum() {
+    console.log('Load list album.....')
     cloudinary.api.sub_folders("image",
         async function (error, subf) {
             for (let i = 0; i < subf.folders.length; i++) {
@@ -48,6 +49,7 @@ function groupBy(list, keyGetter) {
     return map;
 }
 function loadAllImage() {
+    console.log('Load all image....')
     i = 0
     cloudinary.api.resources({
         type: 'upload',
@@ -100,3 +102,4 @@ exports.getListAlbum = getListAlbum
 exports.getAllImage = getAllImage
 exports.uploadImage = uploadImage
 exports.getOneAlbum = getOneAlbum
+exports.loadAllImage = loadAllImage

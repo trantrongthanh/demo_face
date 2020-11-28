@@ -148,7 +148,7 @@ function addPerson(link, persons) {
     library.uploadImage(cropLink).then(() => {
         //cắt khuôn mặt và thêm link khuôn mặt được cắt vào thuộc tính của person
         upload.addLinkCropFace(persons, cropLink.link)
-        
+
         persons.forEach(function (item) {
             person = idolPerson.filter(person => person.name == item.name)[0]
             console.log(person)
@@ -159,6 +159,7 @@ function addPerson(link, persons) {
             idolPerson = submitFace.getListPerson()
         })
         submitFace.train()
+        library.loadAllImage()
     })
 }
 
