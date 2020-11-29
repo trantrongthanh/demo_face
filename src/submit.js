@@ -32,7 +32,7 @@ function submitOnePerson(name, link) {
 function submitIdolFace(personId, faceUrl) {
     console.log(`Begin submit image ${faceUrl} for person id ${personId}`);
     // console.log(`Begin submit image ${faceUrl.substring(20,60)} for person id ${personId}`);
-    let url = `https://southeastasia.api.cognitive.microsoft.com/face/v1.0/persongroups/${groupId}/persons/${personId}/persistedFaces??detectionModel=detection_02`;
+    let url = `https://southeastasia.api.cognitive.microsoft.com/face/v1.0/persongroups/${groupId}/persons/${personId}/persistedFaces?detectionModel=detection_02`;
     var res = request('POST', url, {
         headers: {
             'Ocp-Apim-Subscription-Key': key

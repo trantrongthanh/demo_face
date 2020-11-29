@@ -18,6 +18,7 @@
     color: red;
     min-width: 100px;
     position: absolute;
+    font: 1.2em sans-serif;
 }
 .card-title{
     color: blue;

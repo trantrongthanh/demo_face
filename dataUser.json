@@ -1,0 +1,60 @@
+[
+    {
+        "username": "thanhtrong",
+        "password": "19008198",
+        "name": "Trần Trọng Thành",
+        "personGroup": "face_group",
+        "cloudinaryFolder": "All_image",
+        "listAlbum": [
+            {
+                "name": "Thành",
+                "listImage": 
+                [
+                    {
+                        "link": [],
+                        "dateUpload": ""
+                    }
+                ]
+            },
+            {
+                "name": "Nhựt",
+                "listImage": 
+                [
+                    {
+                        "link": [],
+                        "dateUpload": ""
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "username": "minhnhut",
+        "password": "22222222",
+        "name": "Nguyễn Minh Nhựt",
+        "personGroup": "nhut_faceGroup",
+        "cloudinaryFolder": "nhut_image",
+        "listAlbum": [
+            {
+                "name": "Cảnh",
+                "listImage": 
+                [
+                    {
+                        "link": [],
+                        "dateUpload": ""
+                    }
+                ]
+            },
+            {
+                "name": "Nhựt",
+                "listImage": 
+                [
+                    {
+                        "link": ["abc", "xyz"],
+                        "dateUpload": ""
+                    }
+                ]
+            }
+        ]
+    }
+]

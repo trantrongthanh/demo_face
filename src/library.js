@@ -53,13 +53,15 @@ function loadAllImage() {
     i = 0
     cloudinary.api.resources({
         type: 'upload',
-        max_results: 100
+        prefix: 'All_image',
+        max_results: 150
     }, function (error, results) {
         results.resources.forEach(function (each) {
             each.created_at = each.created_at.slice(0, 10)
         })
         const grouped = groupBy(results.resources, resource => resource.created_at);
-
+        list_key.sort()
+        list_key.reverse()
         for (let i = 0; i < list_key.length; i++) {
             let obj = {
                 res: grouped.get(list_key[i]),
@@ -89,17 +91,25 @@ async function getOneAlbum(res, lbl) {
     })
 
 }
-async function uploadImage(uploadLink) {
+async function uploadImage(folder, uploadLink) {
     await cloudinary.uploader.upload(uploadLink.link, {
-        folder: 'All_image'
+        folder: folder
     },
         function (error, result) {
             uploadLink.link = result.url;
         });
 }
+function uploadImage2Album(folder, link) {
+    cloudinary.uploader.upload(link, {
+        folder: folder
+    })
+}
+
 
 exports.getListAlbum = getListAlbum
 exports.getAllImage = getAllImage
 exports.uploadImage = uploadImage
 exports.getOneAlbum = getOneAlbum
 exports.loadAllImage = loadAllImage
+exports.uploadImage2Album = uploadImage2Album
+exports.loadAlbum = loadAlbum

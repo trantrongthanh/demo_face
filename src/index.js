@@ -24,7 +24,7 @@ var idolPerson = submitFace.getListPerson()
 var link;
 var ratio;
 // variable for upload
-var result
+var resultUpload
 var unknowList
 var knownList
 
@@ -45,24 +45,24 @@ app.get('/library', (req, res) => {
     res.render('library', { result: listAlbum })
 })
 app.get('/upload', (req, res) => {
-
+    console.log(resultUpload)
     if (Object.keys(req.query).length > 0) {
         if (req.query.category == 'search') {
-            result = []
+            resultUpload = []
             unknowList = []
             knownList = []
             link = req.query.link
             width = req.query.width
-            result = recogn.recognize(link, idolPerson)
+            resultUpload = recogn.recognize(link, idolPerson)
             // console.log(result)
-            if (typeof (result) == "undefined") {
+            if (typeof (resultUpload) == "undefined") {
                 res.render('upload', {
                     link: link
                 })
             }
             else {
-                changsize(result, link, width).then(() => {
-                    result.forEach(function (item) {
+                changsize(resultUpload, link, width).then(() => {
+                    resultUpload.forEach(function (item) {
                         if (item.person.name == '#unknown')
                             unknowList.push(item)
                         else
@@ -81,13 +81,20 @@ app.get('/upload', (req, res) => {
                 let uploadLink = {}
                 uploadLink.link = link
 
-                await library.uploadImage(uploadLink)
+                await library.uploadImage('All_image', uploadLink)
+                library.loadAllImage()
                 if (knownList.length > 0) {
                     knownList.forEach(function (item) {
                         item.name = item.person.name;
                     })
                     console.log(knownList)
-                    addPerson(uploadLink.link, knownList)
+                    // addPerson(uploadLink.link, knownList)
+
+                    knownList.forEach(function (item){
+                        pathUpload = "image/"+ item.name
+                        library.uploadImage2Album(pathUpload, link)
+                    })
+
                 }
                 if (unknowList.length > 0) {
                     var listName = req.query.name;
@@ -103,11 +110,15 @@ app.get('/upload', (req, res) => {
                         return item.name != ''
                     })
                     if (unknowList.length > 0) {
-                        addPerson(uploadLink.link, unknowList)
+                        // addPerson(uploadLink.link, unknowList)
+                        unknowList.forEach(function (item){
+                            pathUpload = "image/"+ item.name
+                            library.uploadImage2Album(pathUpload, link)
+                        })
                     }
                 }
-                library.loadAllImage()
-                submitFace.train()
+                library.loadAlbum()
+                // submitFace.train()
             }
             task()
             res.render('upload', {
@@ -121,13 +132,13 @@ app.get('/upload', (req, res) => {
 })
 
 app.get('/search', (req, res) => {
-    var result = []
+    var resultSearch = []
     if (Object.keys(req.query).length > 0) {
         link = req.query.link
         width = req.query.width
 
-        result = recogn.recognize(link, idolPerson)
-        if (typeof (result) == "undefined") {
+        resultSearch = recogn.recognize(link, idolPerson)
+        if (typeof (resultSearch) == "undefined") {
             res.render('search', {
                 title: 'abc',
                 link: link,
@@ -138,7 +149,7 @@ app.get('/search', (req, res) => {
             async function changsize() {
                 let originImg = await probe(link);
                 ratio = originImg.width / width;
-                result.forEach(function (item) {
+                resultSearch.forEach(function (item) {
                     item.face.top_new = item.face.top / ratio;
                     item.face.left_new = item.face.left / ratio;
                     item.face.width_new = item.face.width / ratio;
@@ -150,10 +161,10 @@ app.get('/search', (req, res) => {
                 });
             }
             changsize().then(() => {
-                console.log(result)
+                // console.log(resultSearch)
                 res.render('search', {
                     link: link,
-                    result: result
+                    result: resultSearch
                 })
             })
         }

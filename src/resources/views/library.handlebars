@@ -1,14 +1,15 @@
 <div class="container">
     <div class="row">
-        {{#each this.result}}
-        <div class="col-md-2">
-            <h2 name="q">{{this.lbl}}</h2>
-            <div class="thumbnail">
-                <a href="/album?l={{this.lbl}}">
-                    <img src="{{this.first.url}}" alt="Lights" style="width:100%">
-                </a>
+       
+            {{#each this.result}}
+            <div class="col-md-3" style="margin-top: 30px;">
+                <h5 name="q">{{this.lbl}}</h5>
+                <div class="thumbnail">
+                    <a href="/album?l={{this.lbl}}">
+                        <img src="{{this.first.url}}" alt="Lights" style="width:100%">
+                    </a>
+                </div>
             </div>
-        </div>
-        {{/each}}
+            {{/each}}
     </div>
 </div>
