@@ -1,0 +1,64 @@
+<form>
+    <div class="row" style="margin-top: 20px;">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" id='widthImg'>
+            <div class="form-group">
+                <input type="text" name="link" class="form-control" id="link" placeholder="Nhập vào link ảnh">
+
+                <input type="text" id='widthInput' name="width" id="link" style="display: none;">
+                <input type='text' name='category' value="search" style="display: none;">
+            </div>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Tìm</button>
+        </div>
+    </div>
+
+
+</form>
+<form style="margin-top: 25px;">
+
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div>{{this.inform}}</div>
+            <div class="card">
+
+                <div class="source-image align-middle">
+                    <img id='imageID' src="{{this.link}}" class="card-img-top" alt="...">
+                    <input type='text' name='category' value="upload" style="display: none;">
+                    {{#each this.unknowList}}
+                    <input type="text" id="{{this.faceId}}" name="name" placeholder="Nhap ten"
+                        style="position: absolute; top: {{this.inputTop}}px; left: {{this.inputLeft}}px; width: {{this.inputWidth}}px;">
+                    <div class="idol-face"
+                        style="top:{{this.face.top_new}}px; left:{{this.face.left_new}}px;
+                                                    width:{{this.face.width_new}}px; height:{{this.face.height_new}}px">
+                    </div>
+
+                    {{/each}}
+                    {{#each this.knownList}}
+                    <span class="idol-name"
+                        style="position: absolute; top: {{this.inputTop}}px; left: {{this.inputLeft}}px;">
+                        {{this.person.name}}
+                    </span>
+                    <div class="idol-face"
+                        style="top:{{this.face.top_new}}px; left:{{this.face.left_new}}px;
+                                                    width:{{this.face.width_new}}px; height:{{this.face.height_new}}px">
+                    </div>
+
+                    {{/each}}
+                </div>
+            </div>
+
+        </div>
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary" style="margin-left: 10px;">Upload</button>
+        </div>
+    </div>
+
+
+</form>
+<script>
+    var image = document.getElementById('imageID')
+    document.getElementById("widthInput").value = image.clientWidth;
+</script>

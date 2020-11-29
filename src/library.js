@@ -89,12 +89,12 @@ async function getOneAlbum(res, lbl) {
     })
 
 }
-async function uploadImage(cloud_link) {
-    await cloudinary.uploader.upload(cloud_link.link, {
+async function uploadImage(uploadLink) {
+    await cloudinary.uploader.upload(uploadLink.link, {
         folder: 'All_image'
     },
         function (error, result) {
-            cloud_link.link = result.url;
+            uploadLink.link = result.url;
         });
 }
 

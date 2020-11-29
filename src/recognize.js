@@ -51,7 +51,7 @@ function identify(faceIds) {
     }
 }
 
-// Nhận diện vị trí khuôn mặt và tên idol từ URL ảnh
+// Nhận diện vị trí khuôn mặt và tên từ URL ảnh
 function recognize(imageUrl, idolPerson) {
     console.log(`Begin to recognize image: ${imageUrl}`);
     var detectedFaces = detect(imageUrl);
@@ -70,11 +70,11 @@ function recognize(imageUrl, idolPerson) {
         // Lấy vị trí khuôn mặt trong ảnh để hiển thị
         result.face = detectedFaces.filter(face => face.faceId == result.faceId)[0].faceRectangle;
 
-        // Tìm idol đã được nhận diện từ DB
+        // Tìm person đã được nhận diện từ DB
         if (result.
             candidates.length > 0) {
 
-            // Kết quả chỉ trả về ID, dựa vào ID này ta tìm tên của idol
+            // Kết quả chỉ trả về ID, dựa vào ID này ta tìm tên của person
             var idolId = result.candidates[0].personId;
             var person = idolPerson.filter(person => person.personId == idolId)[0];
             console.log(idolId)

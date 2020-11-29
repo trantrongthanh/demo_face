@@ -22,8 +22,11 @@ var upload = require('./upload.js');
 var idolPerson = submitFace.getListPerson()
 
 var link;
-var result;
 var ratio;
+// variable for upload
+var result
+var unknowList
+var knownList
 
 app.get('/', (req, res) => {
     var resource = library.getAllImage()
@@ -41,57 +44,84 @@ app.get('/library', (req, res) => {
     var listAlbum = library.getListAlbum()
     res.render('library', { result: listAlbum })
 })
-app.get('/addPerson', (req, res) => {
-    var unknowList = []
-    var knownList = []
-    result.forEach(function (item) {
-        if (item.person.name == '#unknown')
-            unknowList.push(item)
-        else
-            knownList.push(item)
-    })
-    if (knownList.length > 0) {
-        knownList.forEach(function (item) {
-            item.name = item.person.name;
-        })
-        console.log(knownList)
-        addPerson(link, knownList)
-    }
-    if (unknowList.length > 0) {
-        // console.log(unknowList)
-        unknowList.forEach(function (item) {
-            item.inputTop = item.face.top_new - 30;
-            item.inputLeft = item.face.left_new;
-            item.inputWidth = item.face.width_new;
-        })
-        if (Object.keys(req.query).length > 0) {
-            var listName = req.query.name;
-            index = 0;
-            unknowList.forEach(function (item) {
-                if (typeof listName == 'string')
-                    item.name = listName;
-                else
-                    item.name = listName[index];
-                index++
-            })
-            unknowList = unknowList.filter(function (item) {
-                return item.name != ''
-            })
-            if (unknowList.length > 0) {
-                addPerson(link, unknowList)
+app.get('/upload', (req, res) => {
+
+    if (Object.keys(req.query).length > 0) {
+        if (req.query.category == 'search') {
+            result = []
+            unknowList = []
+            knownList = []
+            link = req.query.link
+            width = req.query.width
+            result = recogn.recognize(link, idolPerson)
+            // console.log(result)
+            if (typeof (result) == "undefined") {
+                res.render('upload', {
+                    link: link
+                })
+            }
+            else {
+                changsize(result, link, width).then(() => {
+                    result.forEach(function (item) {
+                        if (item.person.name == '#unknown')
+                            unknowList.push(item)
+                        else
+                            knownList.push(item)
+                    })
+                    res.render('upload', {
+                        link: link,
+                        unknowList: unknowList,
+                        knownList: knownList,
+                    })
+                })
             }
         }
-        res.render('addPerson',
-            {
+        if (req.query.category == 'upload') {
+            async function task() {
+                let uploadLink = {}
+                uploadLink.link = link
+
+                await library.uploadImage(uploadLink)
+                if (knownList.length > 0) {
+                    knownList.forEach(function (item) {
+                        item.name = item.person.name;
+                    })
+                    console.log(knownList)
+                    addPerson(uploadLink.link, knownList)
+                }
+                if (unknowList.length > 0) {
+                    var listName = req.query.name;
+                    index = 0;
+                    unknowList.forEach(function (item) {
+                        if (typeof listName == 'string')
+                            item.name = listName;
+                        else
+                            item.name = listName[index];
+                        index++
+                    })
+                    unknowList = unknowList.filter(function (item) {
+                        return item.name != ''
+                    })
+                    if (unknowList.length > 0) {
+                        addPerson(uploadLink.link, unknowList)
+                    }
+                }
+                library.loadAllImage()
+                submitFace.train()
+            }
+            task()
+            res.render('upload', {
                 link: link,
-                unknowList: unknowList
+                inform: 'Upload thành công'
             })
+        }
     }
     else
-        res.render('addPerson')
+        res.render('upload', { link: 'https://res.cloudinary.com/iuhcongnghemoi/image/upload/v1606579573/All_image/0eaHxIb_akvcqz.jpg' })
 })
 
 app.get('/search', (req, res) => {
+    var result = []
     if (Object.keys(req.query).length > 0) {
         link = req.query.link
         width = req.query.width
@@ -120,7 +150,7 @@ app.get('/search', (req, res) => {
                 });
             }
             changsize().then(() => {
-
+                console.log(result)
                 res.render('search', {
                     link: link,
                     result: result
@@ -142,24 +172,34 @@ app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
 
+async function changsize(result, link, width) {
+    let originImg = await probe(link);
+    ratio = originImg.width / width;
+    result.forEach(function (item) {
+        item.face.top_new = item.face.top / ratio;
+        item.face.left_new = item.face.left / ratio;
+        item.face.width_new = item.face.width / ratio;
+        item.face.height_new = item.face.height / ratio;
+        item.inputTop = item.face.top_new - 30;
+        item.inputLeft = item.face.left_new;
+        item.inputWidth = item.face.width_new;
+        if (item.person.id == 0)
+            console.log('mot khuon mat khong nhan dien dc')
+    });
+}
 function addPerson(link, persons) {
     let cropLink = {}
     cropLink.link = link
-    library.uploadImage(cropLink).then(() => {
-        //cắt khuôn mặt và thêm link khuôn mặt được cắt vào thuộc tính của person
-        upload.addLinkCropFace(persons, cropLink.link)
 
-        persons.forEach(function (item) {
-            person = idolPerson.filter(person => person.name == item.name)[0]
-            console.log(person)
-            if (typeof person == 'undefined')
-                submitFace.submitOnePerson(item.name, item.face_link)
-            else
-                submitFace.submitIdolFace(person.personId, item.face_link)
-            idolPerson = submitFace.getListPerson()
-        })
-        submitFace.train()
-        library.loadAllImage()
+    //cắt khuôn mặt và thêm link khuôn mặt được cắt vào thuộc tính của person
+    upload.addLinkCropFace(persons, link)
+    persons.forEach(function (item) {
+        person = idolPerson.filter(person => person.name == item.name)[0]
+        if (typeof person == 'undefined')
+            submitFace.submitOnePerson(item.name, item.face_link)
+        else
+            submitFace.submitIdolFace(person.personId, item.face_link)
+        idolPerson = submitFace.getListPerson()
     })
 }
 
