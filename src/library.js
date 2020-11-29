@@ -49,28 +49,30 @@ function groupBy(list, keyGetter) {
     return map;
 }
 function loadAllImage() {
-    console.log('Load all image....')
     i = 0
-    cloudinary.api.resources({
-        type: 'upload',
-        prefix: 'All_image',
-        max_results: 150
-    }, function (error, results) {
-        results.resources.forEach(function (each) {
-            each.created_at = each.created_at.slice(0, 10)
-        })
-        const grouped = groupBy(results.resources, resource => resource.created_at);
-        list_key.sort()
-        list_key.reverse()
-        for (let i = 0; i < list_key.length; i++) {
-            let obj = {
-                res: grouped.get(list_key[i]),
-                lbl: list_key[i]
-            }
-            listImage[i] = obj
-        }
+    listImage = []
+    cloudinary.search
+        .expression('folder:All_image')
+        .sort_by('created_at', 'desc')
+        .max_results(100)
+        .execute().then(results => {
 
-    });
+            results.resources.forEach(function (each) {
+                each.created_at = each.created_at.slice(0, 10)
+            })
+            const grouped = groupBy(results.resources, resource => resource.created_at);
+            console.log(list_key)
+            for (let i = 0; i < list_key.length; i++) {
+                let obj = {
+                    res: grouped.get(list_key[i]),
+                    lbl: list_key[i]
+                }
+                listImage[i] = obj
+            }
+        }
+        );
+    console.log('Load all image....')
+    
 }
 function getAllImage() {
 
@@ -98,6 +100,7 @@ async function uploadImage(folder, uploadLink) {
         function (error, result) {
             uploadLink.link = result.url;
         });
+    loadAllImage()
 }
 function uploadImage2Album(folder, link) {
     cloudinary.uploader.upload(link, {

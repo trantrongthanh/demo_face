@@ -82,7 +82,6 @@ app.get('/upload', (req, res) => {
                 uploadLink.link = link
 
                 await library.uploadImage('All_image', uploadLink)
-                library.loadAllImage()
                 if (knownList.length > 0) {
                     knownList.forEach(function (item) {
                         item.name = item.person.name;
@@ -114,9 +113,12 @@ app.get('/upload', (req, res) => {
                         unknowList.forEach(function (item){
                             pathUpload = "image/"+ item.name
                             library.uploadImage2Album(pathUpload, link)
+                           
                         })
                     }
+                    
                 }
+               
                 library.loadAlbum()
                 // submitFace.train()
             }
