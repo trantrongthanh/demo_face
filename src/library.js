@@ -61,7 +61,6 @@ function loadAllImage() {
                 each.created_at = each.created_at.slice(0, 10)
             })
             const grouped = groupBy(results.resources, resource => resource.created_at);
-            console.log(list_key)
             for (let i = 0; i < list_key.length; i++) {
                 let obj = {
                     res: grouped.get(list_key[i]),
@@ -102,10 +101,11 @@ async function uploadImage(folder, uploadLink) {
         });
     loadAllImage()
 }
-function uploadImage2Album(folder, link) {
-    cloudinary.uploader.upload(link, {
+async function uploadImage2Album(folder, link) {
+    await cloudinary.uploader.upload(link, {
         folder: folder
     })
+    loadAlbum()
 }
 
 

@@ -45,7 +45,6 @@ app.get('/library', (req, res) => {
     res.render('library', { result: listAlbum })
 })
 app.get('/upload', (req, res) => {
-    console.log(resultUpload)
     if (Object.keys(req.query).length > 0) {
         if (req.query.category == 'search') {
             resultUpload = []
@@ -87,9 +86,9 @@ app.get('/upload', (req, res) => {
                         item.name = item.person.name;
                     })
                     console.log(knownList)
-                    // addPerson(uploadLink.link, knownList)
-
-                    knownList.forEach(function (item){
+                    addPerson(uploadLink.link, knownList)
+                    groupName = groupByName(knownList)
+                    groupName.forEach(function (item){
                         pathUpload = "image/"+ item.name
                         library.uploadImage2Album(pathUpload, link)
                     })
@@ -109,8 +108,9 @@ app.get('/upload', (req, res) => {
                         return item.name != ''
                     })
                     if (unknowList.length > 0) {
-                        // addPerson(uploadLink.link, unknowList)
-                        unknowList.forEach(function (item){
+                        addPerson(uploadLink.link, unknowList)
+                        groupName = groupByName(unknowList)
+                        groupName.forEach(function (item){
                             pathUpload = "image/"+ item.name
                             library.uploadImage2Album(pathUpload, link)
                            
@@ -118,9 +118,7 @@ app.get('/upload', (req, res) => {
                     }
                     
                 }
-               
-                library.loadAlbum()
-                // submitFace.train()
+                submitFace.train()
             }
             task()
             res.render('upload', {
@@ -215,7 +213,18 @@ function addPerson(link, persons) {
         idolPerson = submitFace.getListPerson()
     })
 }
-
+function groupByName(resource)
+{
+    var result= []
+    result[0] = resource[0]
+    resource.forEach(function (item){
+        result.forEach(function (re){
+            if(item.name != re.name)
+                result.push(item)
+        })
+    })
+    return result
+}
 // var names;
 // async function getNames() {
 //     cloudinary.api.sub_folders("image",
