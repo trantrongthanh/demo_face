@@ -3,7 +3,7 @@
        
             {{#each this.result}}
             <div class="col-md-3" style="margin-top: 30px;">
-                <h5 name="q">{{this.lbl}}</h5>
+                <h5 class="lbl_img" name="q">{{this.lbl}}</h5>
                 <div class="thumbnail">
                     <a href="/album?l={{this.lbl}}">
                         <img src="{{this.first.url}}" alt="Lights" style="width:100%">
@@ -13,3 +13,56 @@
             {{/each}}
     </div>
 </div>
+<style>
+    .lbl_img {
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: 600;
+        text-shadow: 1px 1px 0 hsl(174, 5%, 80%),
+            1px 2px 0 hsl(174, 5%, 75%),
+            1px 3px 0 hsl(174, 5%, 70%),
+            1px 4px 0 hsl(174, 5%, 66%),
+            1px 4px 0 hsl(174, 5%, 64%),
+            1px 4px 0 hsl(174, 5%, 62%),
+            1px 4px 0 hsl(174, 5%, 61%),
+            1px 4px 0 hsl(174, 5%, 60%),
+            1px 0 5px rgba(0, 174, 255, 0.05),
+            1px 1px 3px rgba(255, 255, 255, 0.2),
+            1px 3px 5px rgba(255, 255, 255, 0.2),
+            1px 5px 10px rgba(255, 255, 255, 0.2),
+            1px 10px 10px rgba(255, 255, 255, 0.2),
+            1px 10px 5px rgba(255, 255, 255, 0.2);
+    }
+
+    .thumbnail {
+        width: auto;
+        height: auto;
+        overflow: hidden;
+        border: 1px solid #e5e5e5;
+    }
+
+    .thumbnail img {
+        width: 100%;
+        height: 100%;
+        transition-duration: 0.5s;
+        /* Safari */
+        -webkit-transition-duration: 0.5s;
+        /* Mozilla Firefox */
+        -moz-transition-duration: 0.5s;
+        /* Opera */
+        -o-transition-duration: 0.5s;
+        /* IE 9 */
+        -ms-transition-duration: 0.5s;
+    }
+
+    .thumbnail img:hover {
+        transform: scale(1.5);
+        -webkit-transform: scale(1.5);
+        -moz-transform: scale(1.5);
+        -o-transform: scale(1.5);
+        -ms-transform: scale(1.5);
+        cursor: pointer;
+    }
+</style>

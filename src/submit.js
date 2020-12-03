@@ -28,7 +28,7 @@ function submitOnePerson(name, link) {
 
 }
 
-// Submit ảnh của idol lên hệ thống
+// Submit ảnh của person lên hệ thống
 function submitIdolFace(personId, faceUrl) {
     console.log(`Begin submit image ${faceUrl} for person id ${personId}`);
     // console.log(`Begin submit image ${faceUrl.substring(20,60)} for person id ${personId}`);
@@ -75,14 +75,14 @@ function train() {
     }
 }
 
-// for (let idol of idols) {
-//     submitIdol(idol);
-// }
 exports.submitIdolFace = submitIdolFace
 exports.submitOnePerson = submitOnePerson
 exports.train = train
 exports.getListPerson = getListPerson
 
+// for (let idol of idols) {
+//     submitIdol(idol);
+// }
 
 // NodeJS không có thread.sleep nên ra dùng tạm function này
 // function sleep(time) {
