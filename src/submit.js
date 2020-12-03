@@ -2,7 +2,7 @@
 var request = require('sync-request');
 
 
-let key = 'd5337aaf2cb849879e99f680d51997be';
+let key = '528dfe66a4f14f4b881466b6b2488df8';
 let groupId = 'face_group';
 
 function submitOnePerson(name, link) {
