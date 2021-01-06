@@ -35,7 +35,7 @@ app.get('/', (req, res) => {
     var resource = library.getAllImage()
     for (let i = 0; i < resource.length; i++) {
         nImg += resource[i].res.length
-        if (nImg <10 && i<4)
+        if (nImg < 10 && i < 4)
             headList.push(resource[i])
         else
             lazyList.push(resource[i])
@@ -63,7 +63,15 @@ app.get('/upload', (req, res) => {
             knownList = []
             link = req.query.link
             width = req.query.width
-            resultUpload = recogn.recognize(link, idolPerson)
+            try {
+
+                resultUpload = recogn.recognize(link, idolPerson)
+            } catch (error) {
+                res.render('upload', {
+                    inform: 'nhập sai link',
+                    link: 'https://thietkekhainguyen.com/wp-content/uploads/2018/10/in-album-anh3.jpg'
+                })
+            }
             // console.log(result)
             if (typeof (resultUpload) == "undefined") {
                 res.render('upload', {
@@ -139,7 +147,7 @@ app.get('/upload', (req, res) => {
         }
     }
     else
-        res.render('upload', { link: 'https://res.cloudinary.com/iuhcongnghemoi/image/upload/v1606579573/All_image/0eaHxIb_akvcqz.jpg' })
+        res.render('upload', { link: 'https://thietkekhainguyen.com/wp-content/uploads/2018/10/in-album-anh3.jpg' })
 })
 
 app.get('/search', (req, res) => {
@@ -148,7 +156,15 @@ app.get('/search', (req, res) => {
         link = req.query.link
         width = req.query.width
 
-        resultSearch = recogn.recognize(link, idolPerson)
+        try {
+            resultSearch = recogn.recognize(link, idolPerson)
+            
+        } catch (error) {
+            res.render('search', {
+                link: 'https://esben.qodeinteractive.com/wp-content/uploads/2017/07/home-03-img-3.jpg',
+                inform: 'nhập sai link'
+            })
+        }
         if (typeof (resultSearch) == "undefined") {
             res.render('search', {
                 title: 'abc',

@@ -28,7 +28,22 @@
     font-size: 25px;    
 }
 .navbar-brand{
-    margin-right: 5%;
+    margin-right: 3%;
     font-size: 35px;
+}
+.uppercase{
+    text-transform: uppercase;
+}
+.bg-black{
+    background-color: black !important;
+}
+.hover-animation-right:hover{
+    transition-duration: 0.4s;
+    transform: translateX(8px);
+    color:white !important;
+}
+.footer{
+    height: 50px;
+    line-height: 50px;
 }
 

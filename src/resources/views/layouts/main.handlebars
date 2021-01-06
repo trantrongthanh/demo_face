@@ -16,32 +16,44 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-dark  bg-black">
 
-        <a class="navbar-brand" href="/">Iphoto</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/library">Library</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/search">Search</a>
-                </li>
-                <li class="nav-item ml-auto">
-                    <a class="nav-link"  href="/upload">Upload</a>
-                </li>
-            </ul>
+            {{!-- <a class="navbar-brand" href="/">Iphoto</a> --}}
+            <a class="navbar-brand" href="#" style="color: yellow;">
+                <img src="https://scontent.fvca1-2.fna.fbcdn.net/v/t1.15752-9/134688568_188260346329777_1886518535498149487_n.png?_nc_cat=107&ccb=2&_nc_sid=ae9488&_nc_ohc=UaCkMsC6glEAX8AWDsR&_nc_ht=scontent.fvca1-2.fna&oh=319771f28318a3bbefab09e8fcdf1038&oe=601A74D1"
+                    width="50" height="50" alt="">
+                    Iphoto
+            </a>
 
-        </div>
-    </nav>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link uppercase hover-animation-right" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link uppercase hover-animation-right" href="/library">Library</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link uppercase hover-animation-right" href="/search">Search</a>
+                    </li>
+                    <li class="nav-item ml-auto">
+                        <a class="nav-link uppercase hover-animation-right" href="/upload">Upload</a>
+                    </li>
+                </ul>
+
+            </div>
+
+        </nav>
+    </div>
     {{{body}}}
+    <footer class="bg-black footer">
+        <p class="text-center text-white ">© 2020 Copyright: Thành </p>
+    </footer>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
