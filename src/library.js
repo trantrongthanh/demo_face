@@ -51,6 +51,7 @@ function groupBy(list, keyGetter) {
 function loadAllImage() {
     i = 0
     listImage = []
+    list_key = []
     cloudinary.search
         .expression('folder:All_image')
         .sort_by('created_at', 'desc')

@@ -29,9 +29,20 @@ var unknowList
 var knownList
 
 app.get('/', (req, res) => {
+    headList = []
+    lazyList = []
+    nImg = 0
     var resource = library.getAllImage()
+    for (let i = 0; i < resource.length; i++) {
+        nImg += resource[i].res.length
+        if (nImg <10 && i<4)
+            headList.push(resource[i])
+        else
+            lazyList.push(resource[i])
+    }
     res.render('home', {
-        results: resource
+        headList: headList,
+        lazyList: lazyList
     })
 })
 
@@ -88,8 +99,8 @@ app.get('/upload', (req, res) => {
                     console.log(knownList)
                     addPerson(uploadLink.link, knownList)
                     groupName = groupByName(knownList)
-                    groupName.forEach(function (item){
-                        pathUpload = "image/"+ item.name
+                    groupName.forEach(function (item) {
+                        pathUpload = "image/" + item.name
                         library.uploadImage2Album(pathUpload, link)
                     })
 
@@ -110,13 +121,13 @@ app.get('/upload', (req, res) => {
                     if (unknowList.length > 0) {
                         addPerson(uploadLink.link, unknowList)
                         groupName = groupByName(unknowList)
-                        groupName.forEach(function (item){
-                            pathUpload = "image/"+ item.name
+                        groupName.forEach(function (item) {
+                            pathUpload = "image/" + item.name
                             library.uploadImage2Album(pathUpload, link)
-                           
+
                         })
                     }
-                    
+
                 }
                 submitFace.train()
             }
@@ -213,13 +224,12 @@ function addPerson(link, persons) {
         idolPerson = submitFace.getListPerson()
     })
 }
-function groupByName(resource)
-{
-    var result= []
+function groupByName(resource) {
+    var result = []
     result[0] = resource[0]
-    resource.forEach(function (item){
-        result.forEach(function (re){
-            if(item.name != re.name)
+    resource.forEach(function (item) {
+        result.forEach(function (re) {
+            if (item.name != re.name)
                 result.push(item)
         })
     })

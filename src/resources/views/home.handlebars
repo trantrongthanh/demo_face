@@ -1,5 +1,5 @@
 <div class="container">
-    {{#each this.results}}
+    {{#each this.headList}}
     <h2>{{this.lbl}}</h2>
     <div class="row">
         {{#each this.res}}
@@ -13,4 +13,49 @@
         {{/each}}
     </div>
     {{/each}}
+     {{#each this.lazyList}}
+    <h2>{{this.lbl}}</h2>
+    <div class="row">
+        {{#each this.res}}
+        <div class="col-md-4">
+            <div class="thumbnail">
+                <a href="{{this.url}}" target="_blank">
+                    <img class="lazy" data-src="{{this.url}}" alt="Lights" style="width:100%; margin-bottom: 20px;">
+                </a>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+    {{/each}}
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var lazyloadImages = document.querySelectorAll("img.lazy");
+        var lazyloadThrottleTimeout;
+
+        function lazyload() {
+            if (lazyloadThrottleTimeout) {
+                clearTimeout(lazyloadThrottleTimeout);
+            }
+
+            lazyloadThrottleTimeout = setTimeout(function () {
+                var scrollTop = window.pageYOffset;
+                lazyloadImages.forEach(function (img) {
+                    if (img.offsetTop < (window.innerHeight + scrollTop)) {
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                    }
+                });
+                if (lazyloadImages.length == 0) {
+                    document.removeEventListener("scroll", lazyload);
+                    window.removeEventListener("resize", lazyload);
+                    window.removeEventListener("orientationChange", lazyload);
+                }
+            }, 200);
+        }
+
+        document.addEventListener("scroll", lazyload);
+        window.addEventListener("resize", lazyload);
+        window.addEventListener("orientationChange", lazyload);
+    });
+</script>
