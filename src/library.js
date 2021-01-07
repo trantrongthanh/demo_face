@@ -107,6 +107,7 @@ async function uploadImage2Album(folder, link) {
         folder: folder
     })
     loadAlbum()
+    loadAllImage()
 }
 
 

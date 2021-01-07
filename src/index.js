@@ -31,11 +31,9 @@ var knownList
 app.get('/', (req, res) => {
     headList = []
     lazyList = []
-    nImg = 0
     var resource = library.getAllImage()
     for (let i = 0; i < resource.length; i++) {
-        nImg += resource[i].res.length
-        if (nImg < 10 && i < 4)
+        if (i < 4)
             headList.push(resource[i])
         else
             lazyList.push(resource[i])
@@ -158,7 +156,7 @@ app.get('/search', (req, res) => {
 
         try {
             resultSearch = recogn.recognize(link, idolPerson)
-            
+
         } catch (error) {
             res.render('search', {
                 link: 'https://esben.qodeinteractive.com/wp-content/uploads/2017/07/home-03-img-3.jpg',
