@@ -37,7 +37,9 @@ function loadAlbum() {
     }
 }
 
-function getListAlbum() { return listAlbum }
+function getListAlbum() { 
+    loadAlbum()
+    return listAlbum }
 
 function groupBy(list, keyGetter) {
     const map = new Map();
