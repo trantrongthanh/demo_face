@@ -11,6 +11,8 @@ loadAlbum()
 loadAllImage()
 
 function loadAlbum() {
+    try {
+      
     console.log('Load list album.....')
     cloudinary.api.sub_folders("image",
         async function (error, subf) {
@@ -29,6 +31,10 @@ function loadAlbum() {
                 });
             }
         });
+          
+    } catch (error) {
+        
+    }
 }
 
 function getListAlbum() { return listAlbum }
